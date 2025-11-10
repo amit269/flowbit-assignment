@@ -6,7 +6,7 @@ import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell
 } from "recharts";
-
+const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://flowbit-backend.onrender.com/api";
 export default function DashboardPage() {
   const [stats, setStats] = useState<any>({});
   const [trends, setTrends] = useState<any[]>([]);
@@ -14,7 +14,6 @@ export default function DashboardPage() {
   const [categories, setCategories] = useState<any[]>([]);
   const [cashflow, setCashflow] = useState<any[]>([]);
   const [invoices, setInvoices] = useState<any[]>([]);
-  const apiBase = "http://localhost:4000/api";
 
   useEffect(() => {
     const fetchAll = async () => {
