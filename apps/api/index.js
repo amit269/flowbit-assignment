@@ -7,7 +7,11 @@ const prisma = new PrismaClient();
 
 // ✅ Enable proper CORS (for frontend at port 3000)
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: [
+  "http://localhost:3000",
+  "https://flowbit-frontend.vercel.app"
+],
+
   methods: ["GET", "POST"],
   credentials: true
 }));
@@ -199,5 +203,6 @@ app.post("/api/chat-with-data", async (req, res) => {
 });
 
 // ✅ Start server
-const PORT = 4000;
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+// ✅ Start server (Render-compatible)
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
