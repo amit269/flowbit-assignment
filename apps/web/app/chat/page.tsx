@@ -8,20 +8,24 @@ export default function ChatPage() {
   const [response, setResponse] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleAsk = async () => {
-    if (!query) return;
-    setLoading(true);
-    setResponse(null);
+ const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://flowbit-backend.onrender.com/api";
 
-    try {
-      const res = await axios.post("http://localhost:4000/api/chat-with-data", { query });
-      setResponse(res.data);
-    } catch (err) {
-      setResponse({ error: "Something went wrong." });
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleAsk = async () => {
+  if (!query.trim()) return;
+  setLoading(true);
+  setResponse(null);
+
+  try {
+    const res = await axios.post(`${apiBase}/chat-with-data`, { query });
+    setResponse(res.data);
+  } catch (error) {
+    console.error("❌ Chat error:", error);
+    setResponse({ error: "Something went wrong. Try again." });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <main className="min-h-screen bg-gray-50 p-10">
